@@ -6,6 +6,7 @@ import javax.persistence.Table;
 
 
 
+
 @Entity
 @Table(name = "spring_hbm_product")
 public class ProductInfo {
