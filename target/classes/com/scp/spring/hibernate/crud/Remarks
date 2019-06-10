@@ -1,0 +1,41 @@
+	
+	SpringConfiguration -- to create beans -- objects inside spring container
+	Appconstants -- to hold constant values such db properties
+	Main -- to test spring hibernate integration -- working
+
+Interfaces	
+	Service -- business logic contract
+	DAO  -- Database implementation contract
+Classes	
+	serviceimpl -- actual business logic part
+	daoImpl -- actual database layer part
+
+						bean<->entity
+							
+<------------bean-----------><-------------entity-------------->
+Configuration
+main -- service -- serviceimpl -- dao -- daoImpl ----	db	
+container --ser---------------------------------------------
+
+
+to create beans using spring anntations..
+	bean -- method level
+	configurations
+	service -- serviceimpl
+	repository -- daoImpl
+	componanent -- 
+	controller
+	
+	@configuration -- 
+	@bean
+	
+			componanent -- generic/util
+	controller  service  repository
+	startingpoint business	databaselogic
+	
+	
+	
+	
+	
+	
+	

@@ -1,0 +1,498 @@
+
+Autowiring
+	--NO  ----- ref
+	--byName
+	--byType
+	--Constructor
+	--autodetect -- deprected since 3.0
+	--autowired
+	
+	
+
+
+
+
+
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+   
+   <bean class="com.scp.java.Product" id="prod" >  
+   			<property name="productPrice" value="32302.3"></property>
+   			<property name="productName" value="Mobile"></property>
+   			<property name="productId" value="101"></property>
+   			<lookup-method name="getProductVendor" ></lookup-method>
+   </bean>
+
+	<bean class="com.scp.java.Vendor" id="ven" >
+			<property name="vendorId" value="1111"></property>
+			<property name="vendorName" value="Flipkart"></property>
+		</bean>
+	
+	
+   
+   
+   </beans>
+   
+   
+   
+  
+  
+  package com.scp.java;
+
+abstract public class Product {
+
+	private int productId;
+	private String productName;
+	private double productPrice;
+
+	public abstract Vendor getProductVendor();
+	
+	static {
+		System.out.println("product class loaded..into memory");
+	}
+	
+	public Product(int productId, String productName, double productPrice, Vendor productVendor) {
+		super();
+		System.out.println("inside product constructor -- args");
+		this.productId = productId;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		//this.productVendor = productVendor;
+	}
+
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", productName=" + productName + ", productPrice=" + productPrice
+				+ "]";
+	}
+
+
+
+
+
+
+	public int getProductId() {
+		return productId;
+	}
+
+
+
+
+
+
+	public void setProductId(int productId) {
+		System.out.println("inside product set id");
+		this.productId = productId;
+	}
+
+
+
+
+
+
+	public String getProductName() {
+		return productName;
+	}
+
+
+
+
+
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+
+
+
+
+
+	public double getProductPrice() {
+		return productPrice;
+	}
+
+
+
+
+
+
+	public void setProductPrice(double productPrice) {
+		this.productPrice = productPrice;
+	}
+
+
+
+
+
+
+	public Product() {
+		System.out.println("inside product constructor -- no arg");
+	}
+
+}
+
+
+
+
+class Vendor{
+	private int vendorId;
+	private String vendorName;
+	
+	static {
+		System.out.println("vendor loaded into memory");
+	}
+	
+	public int getVendorId() {
+		return vendorId;
+	}
+	public void setVendorId(int vendorId) {
+		//System.out.println("inside vendor setid");
+		this.vendorId = vendorId;
+	}
+	public String getVendorName() {
+		return vendorName;
+	}
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
+	@Override
+	public String toString() {
+		return "Vendor [vendorId=" + vendorId + ", vendorName=" + vendorName + "]";
+	}
+	public Vendor(int vendorId, String vendorName) {
+		super();
+		//System.out.println("vendor args constructor....int str");
+		this.vendorId = vendorId;
+		this.vendorName = vendorName;
+	}
+	
+	public Vendor(String vendorame,String venorId) {
+		super();
+		System.out.println("vendor args constructor....str int");
+		//this.vendorId = vendorId;
+	}
+	
+	public Vendor() {
+		super();
+		//System.out.println("vendor -- no arg constructor");
+	}
+	
+	
+	
+	
+}
+
+
+
+		ApplicationContext context = new ClassPathXmlApplicationContext("newbean.xml");
+		
+		Product prod1 = (Product)context.getBean("prod");
+		Product prod2 = (Product)context.getBean("prod");
+		Vendor v1 = (Vendor)context.getBean("ven");
+		Vendor v2 = (Vendor)context.getBean("ven");
+		
+		
+		System.out.println(prod1.hashCode());
+		System.out.println(prod2.hashCode());
+
+		System.out.println(v1.hashCode());
+		System.out.println(v2.hashCode());
+		System.out.println(prod1.getProductVendor().hashCode());
+		System.out.println(prod2.getProductVendor().hashCode());
+
+
+
+
+search depenecies your own...
+	No -- ref -- explicit wiring
+	byName --- ref name and id of depenendent bean shud be same
+	byType --  type of bean will be searched inside container..
+				and will be injected.. if two beans with same type
+				found -- error
+					resolutions -- primary  -- true
+									qualifier Annotations
+	constructor - 
+				your class should have a constructor with a parameter
+				of depenendent bean and name of parameter shud match to the name of depenendent bean id
+				
+	autodetect -- we are using spring 5+ -- no implementations
+	
+	autowire -- annotations support --
+	
+	
+	
+	
+	hibernate and spring <3 version ----- xml
+	hibernate and spring >=3 version -- xml + annotations
+	annotations always..xml parse overhead will be higher..
+	
+	
+	
+	
+	
+				
+				
+	
+
+	Types of DI
+		setter based
+		constructor based
+	Autowiring
+		no
+		byName
+		bytype  ---- qualifier and primary true
+		constructor
+		autodetect
+		autowired  -- constructor+bytype [qualifier and primary true]
+	
+	prototype prototype
+	singletone singletone
+	prototype singletone
+	singletone prototype -- lookup method
+	
+	what is the spring bean life cycle...
+	
+	
+	instantiation -- classloading -- static -
+					setter -- default/No-arg -- availble property setters will be called
+					
+					constructor   -- param constructor
+					
+					setter+constructor -- setter based else constructor
+	
+	Scopes
+		singletone
+		prototype
+		request
+		session
+		globlesession
+	
+	constructor ambiguties
+		name
+		index
+		type
+	
+	types of containers
+		beanfactory
+				xmlbeanfactory
+		ApplicationContext
+				classpathxmlAC
+				filesystemxmlAC
+				WebXmlAC
+	
+	Beanfactory vs applicationcontext
+	
+	request vs prototype
+	
+	singletone vs java's singletone Approach
+	
+	bean.xml - important tags..
+	spring archticture -- along with framework names..
+	
+	private constructor concepts
+	limitations of autowiring
+		overide -- setters
+		confusing in nature
+		array/primitives/string/wrappers -- cannot be autowired
+		
+	
+	flow of setter based ..
+	flow of constructor based
+	prototype -- with ApplicationContext -- Lazy loading point
+	singletone -- with ApplicationContext -- Eager loading
+	
+	
+	
+	
+	
+	
+	package com.clc.util;
+
+
+public class Employee {
+	private int empId;
+	private String empName;
+	private double empSalary;
+	private Address address;
+	
+	
+	
+	public Employee(Address address) {
+		super();
+		this.address = address;
+	}
+	static {
+		System.out.println("Employee class Loaded...!");
+	}
+	
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		System.out.println("inside addr setter");
+		this.address = address;
+	}
+	public int getEmpId() {
+		return empId;
+	}
+	public void setEmpId(int empId) {
+		System.out.println("inside id setter");
+		this.empId = empId;
+	}
+	public String getEmpName() {
+		return empName;
+	}
+	public void setEmpName(String empName) {
+		System.out.println("inside name setter");
+		this.empName = empName;
+	}
+	public double getEmpSalary() {
+		return empSalary;
+	}
+	public void setEmpSalary(double empSalary) {
+		System.out.println("inside salary setter");
+		this.empSalary = empSalary;
+	}
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", empName=" + empName + ", empSalary=" + empSalary + ", address=" + address
+				+ "]";
+	}
+	public Employee(int empId, String empName, double empSalary,Address address) {
+		super();
+		System.out.println("parameterized constructor");
+		this.empId = empId;
+		this.empName = empName;
+		this.empSalary = empSalary;
+		this.address=address;
+	}
+	private Employee() {
+		System.out.println("Employee Default Constructor called...!");
+	}
+	
+
+	
+
+}
+
+
+class Address{
+	private int pinCode;
+	private String city;
+	private String state;
+	
+	static {
+		System.out.println("address class loaded");
+	}
+	
+	@Override
+	public String toString() {
+		return "Address [pinCode=" + pinCode + ", city=" + city + ", state=" + state + "]";
+	}
+	
+	
+	
+	public Address( String city,int pinCode, String state) {
+		super();
+		System.out.println("Address  param contructor ..str int str");
+		this.pinCode = pinCode;
+		this.city = city;
+		this.state = state;
+	}
+	
+	public Address(int pinCode, String city, String state) {
+		super();
+		System.out.println("Address  param contructor .. int str str ");
+		this.pinCode = pinCode;
+		this.city = city;
+		this.state = state;
+	}
+	private Address() {
+		super();
+		System.out.println("address default constructor");
+	}
+	public int getPinCode() {
+		return pinCode;
+	}
+	public void setPinCode(int pinCode) {
+		System.out.println("set pin");
+		this.pinCode = pinCode;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		System.out.println("set city");
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		System.out.println("set state");
+		this.state = state;
+	}
+	
+	
+	
+	
+}
+	
+	
+	
+	
+				
+
+
+
+
+
+	byteName
+	
+	
+	Employee
+		Address addressbean
+		
+		
+	Bean.xml
+	
+			empbean				byteName
+			
+			addressbean
+			
+		
+	ByType
+	
+		 empbean
+		 addressbean
+		 
+		 
+	Constructor
+		EmpClass
+			EmpClass(Address addressbean)
+	
+	
+		empbean
+		
+		addressbean
+		
+		
+	Autowired
+		constructor  -- bytype
+		
+	AutoDetect -- deprected after 3.0
+	
+	
+				
+				
+				

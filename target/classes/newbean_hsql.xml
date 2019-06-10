@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	
+<bean id="dbconfig" class="org.apache.commons.dbcp.BasicDataSource">  
+	<property name="driverClassName"  	value="org.hsqldb.jdbcDriver"></property> 
+	<property name="url" value="jdbc:hsqldb:hsql://localhost/"></property>  
+	<property name="username" value="SA"></property>  	
+	<property name="password" value=""></property>  
+</bean>  
+
+<bean id="sfactory"  
+class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">  
+<property name="dataSource" ref="dbconfig"></property>  
+<property name="packagesToScan" value="com.scp.java.hibernate.integration"></property>
+
+<property name="hibernateProperties">  
+	<props>  
+			<prop key = "hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+ 			<prop key="hibernate.hbm2ddl.auto">create</prop>
+      		<prop key="show_sql">true</prop>
+	</props>  
+</property>  
+</bean>  
+
+   
+   </beans>

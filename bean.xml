@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+   
+   <!-- 
+   
+   	Product prod1 = new Product()
+   	prod1.setProductId(101)
+   	
+   
+    -->
+   
+   
+   <bean class="com.scp.java.Product" id="prod1">  
+   			<property name="productId" value="101"></property>
+   			<property name="productName" value="Laptop"></property>
+   			<property name="productPrice" value="32302.3"></property>
+   			<property name="productVendor" ref="ven"></property>
+   </bean>
+
+
+   <bean class="com.scp.java.Product" id="prod2">  
+   			<property name="productId" value="101"></property>
+   			<property name="productName" value="Laptop"></property>
+   			<property name="productPrice" value="32302.3"></property>
+   			<property name="productVendor" ref="ven"></property>
+   </bean>
+
+
+
+	<bean class="com.scp.java.Vendor" id="ven">
+			<property name="vendorId" value="1001"></property>
+			<property name="vendorName" value="Dell"></property>
+	</bean>
+   
+   </beans>

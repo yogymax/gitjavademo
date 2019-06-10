@@ -1,0 +1,67 @@
+	
+	
+	Spring Framework...
+		Framework of frameworks...
+				logging -- logs
+				TestNg/jUnit -- Testing Framework
+				ORM ---- Database related
+				JMS -- java messaging services
+				 and so on..
+				 
+	
+types of container in spring	
+	BeanFactory
+			xmlbeanfactory(new FileSystemResource("file.xml")) -- drive
+			lightweight
+			lazy loading
+			annotations support -- no
+			internationilaztion/i18 -- multilang support -- 
+			Aop -- support -- No
+			mobile apps -- 
+	APplicationContext
+			classpathxmlapplicationContext("file.xml") -- classpath
+			FileSystemxmlApplicationcontext("file.xml") -- hard drive path
+			WebxmlApplicationContext("file.xml") -- webcontent/webapp --webapplications
+			heavy applications
+			eager loading
+			annotations support -- Yes
+			internationilaztion/i18 -- multilang support -- 
+			Aop -- support -- Yes
+			web -- 
+			
+			
+	https://stackoverflow.com/questions/243385/beanfactory-vs-applicationcontext
+	35
+	
+											http
+										webserver/applicationserver
+										
+	request`------------------------------ process
+	client --------------------------------server
+		<------------------------------------response
+	
+Types of spring bean scopes...
+	signalTone -- D_W_P -- per id -- one object in spring container
+			-- bydefault -- 
+	prototype --  D_W_P	 -- every context.getBean("bid") -- will created new bean in a container
+	
+	request	-- 	W_P -- every http request -- will create new bean in a container
+	
+	session	-- W_P -- per session 
+	globalsession -- P -- single signon  -- per portlet
+	
+Types of Dependency Injections
+		-- setter based  --  -- optional dependencies -- circular
+		-- constructor based -- mandatory dependencies
+		
+		
+		
+	A
+		B
+		
+		A(B)
+		
+	B
+		A
+		
+		B(A)
