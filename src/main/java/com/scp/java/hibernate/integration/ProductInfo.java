@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
+
 @Entity
 @Table(name = "spring_hbm_product")
 public class ProductInfo {
@@ -14,6 +16,7 @@ public class ProductInfo {
 	private String prodVendor;
 	@Override
 	public String toString() {
+		System.out.println("inside tostring method...!");
 		return "\n [prodId=" + prodId + ", prodName=" + prodName + ", prodPrice=" + prodPrice + ", prodVendor="
 				+ prodVendor + "]";
 	}
